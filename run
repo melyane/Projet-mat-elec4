@@ -1,7 +1,9 @@
 touch IndexInvalid.hpp
+touch ErreurMatriceCreuse.hpp
 touch main.cpp
 touch matrice.hpp
 touch matriceDouble.hpp
+touch matriceCreuse.hpp
 
 make
 ./main

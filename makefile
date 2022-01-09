@@ -13,10 +13,12 @@ all: $(PROG)
 $(PROG): $(OBJS)
 	$(CC) -o $@ $^ $(LDFLAGS)
 
-matrice.o: matrice.hpp
-IndexInvalid.o: IndexInvalid.hpp
-matriceDouble.o: matriceDouble.hpp matrice.hpp
-main.o: matrice.hpp matriceDouble.hpp IndexInvalid.hpp
+matrice.o: matrice.hpp                                                        
+IndexInvalid.o: IndexInvalid.hpp                                              
+ErreurMatriceCreuse.o: ErreurMatriceCreuse.hpp                                
+matriceDouble.o: matriceDouble.hpp matriceCreuse.hpp matrice.hpp IndexInvalid.hpp ErreurMatriceCreuse.hpp                                                  
+matriceCreuse.o: matriceCreuse.hpp matriceDouble.hpp matrice.hpp IndexInvalid.hpp ErreurMatriceCreuse.hpp                                                  
+main.o: matrice.hpp matriceDouble.hpp matriceCreuse.hpp ErreurMatriceCreuse.hpp IndexInvalid.hpp  
 
 # le lien entre .o et .cpp
 # $< dernière dépendance
