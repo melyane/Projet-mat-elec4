@@ -1,0 +1,7 @@
+touch IndexInvalid.hpp
+touch main.cpp
+touch matrice.hpp
+touch matriceDouble.hpp
+
+make
+./main
