@@ -28,6 +28,6 @@ int main() {
     catch(const IndexInvalid &e) {
         cerr << e.what() << endl;
     }
-    
+
     return EXIT_SUCCESS;
 }  
