@@ -5,6 +5,7 @@
 #include <sstream>
 
 #include "matrice.hpp"
+#include "matriceCreuse.hpp"
 #include "IndexInvalid.hpp" 
 
 class matriceDouble : public matrice<double> {
@@ -23,25 +24,37 @@ public:
 		}
 	}
 
-	//Constructeur de copie
-	matriceDouble (const matriceDouble &m) {
-		dupliquer (m);
-	}
-
 	//Destructeur
 	~matriceDouble() {
 		delete[] mat;
 	}
 
+	virtual bool estCreuse() const override {
+		return false;
+	}
+
+	//Constructeur de copie
+	matriceDouble (const matriceDouble &m) {
+		dupliquer (m);
+	}
+
 	//Méthode virtuelle get
 	virtual double get (const int i, const int j) const override {
-		assert (i <= matrice::nbL && j <= matrice::nbC);
+		if (i > matrice::nbL)
+			throw IndexInvalid ("i > nb Ligne");
+		if (j > matrice::nbC)
+			throw IndexInvalid("j > nb Colonne");
+		
 		return this->mat[i*matrice::nbC+j];
 	}
 
 	//Méthode virtuelle set
 	virtual void set (const int i, const int j, const double &x) override{
-		assert (i <= matrice::nbL && j <= matrice::nbC);
+		if (i > matrice::nbL)
+			throw IndexInvalid ("i > nb Ligne");
+		if (j > matrice::nbC)
+			throw IndexInvalid("j > nb Colonne");
+		
 		this->mat[i*matrice::nbC+j] = x;
 	}
 	
@@ -85,4 +98,26 @@ public:
 		}
 		return m;
 	}
+
+	//Méthode convertion
+	virtual matrice<double>* convertion () const override {
+		// compte du nombre d'éléments
+		int n=0;
+		for (int i = 0; i < matrice::nbElem; i++) {
+			if (m.mat[i] != 0.0)
+				n++;
+		}
+		// convertion de la matrice
+		if (n <= int(matrice::nbElem*0.1)) {
+			matriceCreuse *mc(matrice::nbL,matrice::nbC);
+			for (int i = 0; i < matrice::nbElem; i++) {
+					double elem = this->get(i,j);
+					if (elem != 0.0)
+						md->set(i,j,elem);
+				}
+			}
+			return mc;
+		}
+
+
 };
