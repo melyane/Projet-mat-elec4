@@ -29,24 +29,26 @@ public:
   }
 
   virtual T get (const int i, const int j) const = 0;
-  virtual void set (const int i, const int j, const T &x) = 0;
+  virtual void set (const int i, const int j, const T x) = 0;
   virtual std::string toString() const = 0;
   friend std::ostream &operator<< (std::ostream &f, const matrice<T> &m) {
     return f<<m.toString();
   }
   //Rajout question 4 du DS
-  virtual matrice<T>* submat (const int i1, const int i2, const int j1, const int j2) = 0;
+  //virtual matrice<T>* submat (const int i1, const int i2, const int j1, const int j2) = 0;
 
   //Rajout partie 2 du projet
   //  Méthode est creuse
   virtual bool estCreuse() const=0;
-
-  //  Méthode somme de matrice
-  matrice<T>* somme (const matrice<T> &m) const=0;
-
-  //  Méthode produit de matrice
-  matrice<T>* produit (const matrice<T> &m) const=0;
-
+/*
   //  Méthode convertion
   virtual matrice<T>* convertion () const=0;
+
+
+  //  Méthode somme de matrice
+  //matrice<T>* somme (const matrice<T> &m) const=0;
+
+  //  Méthode produit de matrice
+  //matrice<T>* produit (const matrice<T> &m) const=0;
+  */
 };

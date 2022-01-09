@@ -5,12 +5,13 @@
 #include <sstream>
 
 #include "matrice.hpp"
-#include "matriceCreuse.hpp"
+//#include "matriceCreuse.hpp"
 #include "IndexInvalid.hpp" 
 
 class matriceDouble : public matrice<double> {
 protected:
 	double * mat;
+
 	void dupliquer (const matriceDouble &m) {
 		this->mat = new double [matrice::nbElem];
 		for (int i = 0; i < matrice::nbElem; i++)
@@ -49,7 +50,7 @@ public:
 	}
 
 	//Méthode virtuelle set
-	virtual void set (const int i, const int j, const double &x) override{
+	virtual void set (const int i, const int j, const double x) override{
 		if (i > matrice::nbL)
 			throw IndexInvalid ("i > nb Ligne");
 		if (j > matrice::nbC)
@@ -79,7 +80,7 @@ public:
 
 	//la surcharge de l'opérateur << n'est pas nécessaire 
 	//car elle est déjà présente dans la classe mère
-
+/*
 	//Rajout question 5
 	virtual matrice<double>* submat (const int i1, const int i2, const int j1, const int j2) {
 		if (i1 > i2)
@@ -98,13 +99,15 @@ public:
 		}
 		return m;
 	}
-
+	*/
+	
+/*
 	//Méthode convertion
 	virtual matrice<double>* convertion () const override {
 		// compte du nombre d'éléments
 		int n=0;
 		for (int i = 0; i < matrice::nbElem; i++) {
-			if (m.mat[i] != 0.0)
+			if (this->mat[i] != 0.0)
 				n++;
 		}
 		// convertion de la matrice
@@ -113,11 +116,11 @@ public:
 			for (int i = 0; i < matrice::nbElem; i++) {
 					double elem = this->get(i,j);
 					if (elem != 0.0)
-						md->set(i,j,elem);
+						mc->set(i,j,elem);
 				}
 			}
 			return mc;
 		}
-
+*/
 
 };
