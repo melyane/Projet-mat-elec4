@@ -11,36 +11,32 @@
 class matriceCreuse : public matrice<double> {
 protected:
 	double * mat;
-	int * ligne;
-	int * colonne;
+	int * indice;
 	int nbElemCreuse;
+
 	void dupliquer (const matriceCreuse &m) {
 		this->mat = new double[nbElemCreuse];
-		this->ligne = new int[nbElemCreuse];
-		this->colonne = new int[nbElemCreuse];
+		this->indice = new int[nbElemCreuse];
 		for (int k=0; k<nbElemCreuse; k++) {
 			this->mat[k] = m.mat[k];
-			this->ligne[k] = m.ligne[k];
-			this->colonne[k] = m.colonne[k];
+			this->indice[k] = m.ligne[k];
 		}
 	}
 
 public:
 	//Constructeur
-	matriceCreuse (const int n, const int m) : matrice (n,m), mat(new double [nbElemCreuse]), ligne(new int [nbElemCreuse]), colonne(new int [nbElemCreuse]){
+	matriceCreuse (const int n, const int m) : matrice (n,m), mat(new double [nbElemCreuse]), indice(new int [nbElemCreuse]){
 		nbElemCreuse = int (matrice::nbElem*0.1);
 		for (int k=0; k<nbElemCreuse; k++) {
 			mat[k] = 0.0;
-			colonne[k] = -1;
-			ligne[k] = -1;
+			indice[k] = -1;
 		}
 	}
 
 	//Destructeur
 	~matriceDouble() {
 		delete[] mat;
-		delete[] ligne;
-		delete[] colonne;
+		delete[] indice;
 	}
 
 	virtual bool estCreuse() const override {
@@ -60,7 +56,7 @@ public:
 			throw IndexInvalid("j > nb Colonne");
 
 		for (int k=0; k<nbElemCreuse; k++) {
-			if (this->ligne[k]==i && this->colonne[k]==j)
+			if (this->indice[k]==i*matrice::nbC+j)
 				return this->mat[i];
 		}
 		return 0.0;
@@ -75,10 +71,9 @@ public:
 		
 		if (x==0) {
 			for (int k=0; k<nbElemCreuse; k++){
-				if(this->ligne[k]==i && this->colonne[k]==j){
+				if(this->indice[k]==i*matrice::nbC+j){
 					//this->mat[k]=0.0;
-					this->ligne[k]=-1;
-					this->colonne[k]=-1;
+					this->indice[k]=-1;
 				}
 			}
 		}
@@ -86,17 +81,16 @@ public:
 		else {
 			int test = 1;
 			for (int k=0; k<nbElemCreuse; k++){
-				if(this->ligne[k]==i && this->colonne[k]==j){
+				if(this->ligne[k]==i*matrice::nbC+j){
 					this->mat[k]=x;
 					test=0;
 				}
 			}
 			if (test) {
 				for (int k=0; k<nbElemCreuse; k++){
-					if(this->ligne[k]==-1) {
+					if(this->indice[k]==-1) {
 						this->mat[k]=x;
-						this->ligne[k]=i;
-						this->colonne[k]=j;
+						this->indice[k]=i*matrice::nbC+j;
 					}
 				}
 			}
