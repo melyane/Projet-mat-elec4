@@ -4,6 +4,7 @@ touch main.cpp
 touch matrice.hpp
 touch matriceDouble.hpp
 touch matriceCreuse.hpp
+touch matriceOptimisee.hpp
 
 make
 ./main

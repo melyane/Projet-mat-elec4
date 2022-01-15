@@ -3,7 +3,6 @@
 #include <iostream>
 
 #include "IndexInvalid.hpp" 
-#include "ErreurMatriceCreuse.hpp"
 
 template <typename T>
 
@@ -14,8 +13,11 @@ protected:
   int nbC;
 
 public:
-  matrice (const int L=0, const int C=0) : nbL(L), nbC(C), nbElem(L*C) {}
 
+  // constructeur
+  matrice (const int L=0, const int C=0) : nbL(L), nbC(C), nbElem(L*C) {}
+  
+  // destructeur
   virtual ~matrice () {}
 
   void dupliquer (const matrice<T> &mat) {
@@ -42,10 +44,11 @@ public:
   virtual matrice<T>* submat (const int i1, const int i2, const int j1, const int j2) = 0;
 
   virtual std::string toString() const = 0;
+
+  // surcharge affichage matrice
   friend std::ostream &operator<< (std::ostream &f, const matrice<T> &m) {
     return f<<m.toString();
   }
-
 
   //  Méthode est creuse
   virtual bool estCreuse() const=0;
