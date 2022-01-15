@@ -6,9 +6,32 @@
 #include "IndexInvalid.hpp"
 #include "ErreurMatriceCreuse.hpp"
 
+#include "matriceOptimisee.hpp"
+
 using namespace std;
 
 int main() {
+
+    // SECOND TEST with matriceOptimisee
+
+    matriceOptimisee *mo = new matriceOptimisee(10,10);
+    cout << "mo est creuse : " << mo->estCreuse() << endl;
+    cout << *mo << endl;
+    mo->set(1,1,11);
+    cout << "valeur (1,1) : " << mo->get(1,1) << endl;
+    cout << *mo << endl;
+    mo->set(6,5,56);
+    mo->set(6,9,69);
+    cout << "mo est creuse : " << mo->estCreuse() << endl;
+    cout << *mo << endl;
+    for (int i=0; i<10; i++)
+        mo->set(8,i,80+i);
+    cout << "mo est creuse : " << mo->estCreuse() << endl;
+    cout << *mo << endl;
+
+    /*
+
+    // FIRST TEST
 
     matriceDouble md1(5,10);
 
@@ -46,6 +69,7 @@ int main() {
 
     matrice<double> *mc3=mc.submat(1,4,3,7);
     cout << *mc3 << endl;
+    */
 
     return EXIT_SUCCESS;
 }

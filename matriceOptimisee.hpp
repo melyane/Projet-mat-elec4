@@ -3,6 +3,7 @@
 #include <iostream>
 #include <assert.h>
 
+#include "matrice.hpp"
 #include "matriceCreuse.hpp"
 #include "matriceDouble.hpp"
 
@@ -69,7 +70,7 @@ public:
         return this->m->get(i,j);
     }
 
-    double set(int i, int j, double val) {
+    void set(int i, int j, double val) {
         // valeur précédente
         double Pval = this->get(i,j);
         // précédent état creuse
@@ -137,6 +138,7 @@ public:
     std::string toString () const {
         std::ostringstream s;
         s << *(this->m);
+        return s.str();
     }
 
     // surcharge affichage matrice
