@@ -99,27 +99,49 @@ public:
     }
 
     // somme entre matrices
-    matriceOptimisee* somme(const matriceOptimisee* m1) const {
+    // this + m2
+    matriceOptimisee* somme(const matriceOptimisee *m2) const {
         int x = this->getLigne();
         int y = this->getColonne();        
-        assert(x == m1->getLigne());
-        assert(y == m1->getColonne());
-        matriceOptimisee* res = new matriceOptimisee(x,y);
-
-        // ...
-
+        assert(x == m2->getLigne());
+        assert(y == m2->getColonne());
+        matriceOptimisee *res = new matriceOptimisee(x,y);
+        for (int i=0; i<x; i++) {
+            for (int j=0; j<y; j++) {
+                res->set(i,j,m2->get(i,j)+this->get(i,j));
+            }
+        }
         return res;
     }
 
     // produit entre matrices
-    matriceOptimisee* produit(const matriceOptimisee* m1) const {
-        int x = 0; // ...
-        int y = 0; // ...
-        matriceOptimisee* res = new matriceOptimisee(x,y);
-
-        // ...
-
+    // this * m2
+    matriceOptimisee* produit(const matriceOptimisee *m2) const {
+        int l1 = this->getLigne(); 
+        int c1 = this->getColonne(); 
+        int l2 = m2->getLigne(); 
+        int c2 = m2->getColonne(); 
+        assert(c1==l2);   
+        matriceOptimisee *res = new matriceOptimisee(l1, c2);
+        for(int i = 0; i < l1; i++) {
+            for(int j = 0; j < c2; j++) {
+                for(int k = 0; k < c1; k++) {
+                    res->set(i,j,res->get(i,j)+this->get(i,k)*m2->get(k,j));
+                }
+            }
+        }
         return res;
+    }
+
+    // conversion en string pour affichage
+    std::string toString () const {
+        std::ostringstream s;
+        s << *(this->m);
+    }
+
+    // surcharge affichage matrice
+    friend std::ostream &operator<< (std::ostream &f, const matriceOptimisee &m) {
+        return f<<m.toString();
     }
 
 };
