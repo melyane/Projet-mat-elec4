@@ -11,11 +11,6 @@ class matriceDouble : public matrice<double> {
 protected:
 	double * mat;
 
-	void dupliquer (const matriceDouble &m) {
-		this->mat = new double [matrice::nbElem];
-		for (int i = 0; i < matrice::nbElem; i++)
-			this->mat[i] = m.mat[i];
-	} 
 public:
 	//Constructeur
 	matriceDouble (const int n, const int m) : matrice (n,m), mat(new double [matrice::nbElem]){
@@ -33,6 +28,12 @@ public:
 		return false;
 	}
 
+	void dupliquer (const matriceDouble &m) {
+		this->mat = new double [matrice::nbElem];
+		for (int i = 0; i < matrice::nbElem; i++)
+			this->mat[i] = m.mat[i];
+	} 
+	
 	//Constructeur de copie
 	matriceDouble (const matriceDouble &m) {
 		dupliquer (m);
@@ -77,53 +78,24 @@ public:
 		return *this;
 	};
 
-	//la surcharge de l'opérateur << n'est pas nécessaire 
-	//car elle est déjà présente dans la classe mère
-/*
-	//Rajout question 5
+	//Méthode submat
 	virtual matrice<double>* submat (const int i1, const int i2, const int j1, const int j2) {
 		if (i1 > i2)
 			throw IndexInvalid ("i1 > i2");
 		if (j1 > j2)
 			throw IndexInvalid ("j1 > j2");
+		if (j2 > matrice::nbC || i2 > matrice::nbL)
+			throw IndexInvalid ("i2 > nbL ou j2 > nbC");
+		if (i1 < 0 || j1 < 0)
+			throw IndexInvalid ("i1 ou j1 négatif");
 
 		matrice<double> *m = new matriceDouble(i2-i1+1, j2-j1+1);
-		int a=0,b;
 
-		for(int x = i1-1; x < i2; x++){
-			b=0;
-			for(int y = j1-1; y < j2; y++)
-				m->set(get(x, y), a, b++);
-			a++;
+		for(int x=i1; x<=i2; x++){
+			for(int y=j1; y<=j2; y++) {
+				m->set(x-i1, y-j1, get(x, y));
+			}
 		}
 		return m;
 	}
-	*/
-	
-/*
-	//Méthode convertion
-	virtual matrice<double>* convertion () const override {
-		// compte du nombre d'éléments
-		int n=0;
-		for (int i = 0; i < matrice::nbElem; i++) {
-			if (this->mat[i] != 0.0)
-				n++;
-		}
-		// convertion de la matrice
-		if (n <= int(matrice::nbElem*0.1)) {
-			matriceCreuse *mc(matrice::nbL,matrice::nbC);
-			for (int i = 0; i < matrice::nbElem; i++) {
-					double elem = this->get(i,j);
-					if (elem != 0.0)
-						mc->set(i,j,elem);
-				}
-			}
-			return mc;
-		}
-*/
-	//Méthode somme de matrice
-	matrice<T>* somme (const matrice<T> &m) const {
-		
-	}
-
 };

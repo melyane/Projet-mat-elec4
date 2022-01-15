@@ -14,15 +14,6 @@ protected:
 	double * mat;
 	int * indice;
 
-	void dupliquer (const matriceCreuse &m) {
-		this->mat = new double[nbElemCreuse];
-		this->indice = new int[nbElemCreuse];
-		for (int k=0; k<nbElemCreuse; k++) {
-			this->mat[k] = m.mat[k];
-			this->indice[k] = m.indice[k];
-		}
-	}
-
 public:
 	//Constructeur
 	matriceCreuse (const int n, const int m) : matrice(n,m), nbElemCreuse(int(matrice::nbElem*0.1)), mat(new double [nbElemCreuse]), indice(new int [nbElemCreuse]){
@@ -42,6 +33,15 @@ public:
 		return true;
 	}
 
+	void dupliquer (const matriceCreuse &m) {
+		this->mat = new double[nbElemCreuse];
+		this->indice = new int[nbElemCreuse];
+		for (int k=0; k<nbElemCreuse; k++) {
+			this->mat[k] = m.mat[k];
+			this->indice[k] = m.indice[k];
+		}
+	}
+	
 	//Constructeur de copie
 	matriceCreuse (const matriceCreuse &m) {
 		dupliquer(m);
@@ -116,15 +116,28 @@ public:
 		dupliquer(m);
 		return *this;
 	}
-/*
-	//Méthode de convertion
-	virtual matrice<double>* convertion() const {
-		matriceDouble *md(matrice::nbL,matrice::nbC);
-		for (int i=0; i<matrice::nbL; i++) {
-			for (int j=0; j<matrice::nbC; j++)
-					md->set(i,j,this->get(i,j));
+
+	//Méthode subat
+	virtual matrice<double>* submat (const int i1, const int i2, const int j1, const int j2) {
+		if (i1 > i2)
+			throw IndexInvalid ("i1 > i2");
+		if (j1 > j2)
+			throw IndexInvalid ("j1 > j2");
+		if (j2 > matrice::nbC || i2 > matrice::nbL)
+			throw IndexInvalid ("i2 > nbL ou j2 > nbC");
+		if (i1 < 0 || j1 < 0)
+			throw IndexInvalid ("i1 ou j1 négatif");
+
+		matrice<double> *m = new matriceCreuse(i2-i1+1, j2-j1+1);
+
+		double e;
+		for(int x=i1; x<=i2; x++){
+			for(int y=j1; y<=j2; y++) {
+				e=get(x, y);
+				if (e!=0)
+					m->set(x-i1, y-j1, e);
 			}
-			return md;
+		}
+		return m;
 	}
-*/
 };
