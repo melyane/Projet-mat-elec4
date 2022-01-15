@@ -40,15 +40,13 @@ public:
   //Rajout partie 2 du projet
   //  Méthode est creuse
   virtual bool estCreuse() const=0;
-/*
-  //  Méthode convertion
-  virtual matrice<T>* convertion () const=0;
 
+  //  Méthode convertion
+  //virtual matrice<T>* convertion () const=0;
 
   //  Méthode somme de matrice
   //matrice<T>* somme (const matrice<T> &m) const=0;
 
   //  Méthode produit de matrice
   //matrice<T>* produit (const matrice<T> &m) const=0;
-  */
 };

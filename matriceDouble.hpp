@@ -5,7 +5,6 @@
 #include <sstream>
 
 #include "matrice.hpp"
-//#include "matriceCreuse.hpp"
 #include "IndexInvalid.hpp" 
 
 class matriceDouble : public matrice<double> {
@@ -122,5 +121,9 @@ public:
 			return mc;
 		}
 */
+	//Méthode somme de matrice
+	matrice<T>* somme (const matrice<T> &m) const {
+		
+	}
 
 };

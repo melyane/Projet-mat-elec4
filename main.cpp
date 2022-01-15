@@ -10,18 +10,18 @@ using namespace std;
                                                                                                                                                                                                          
 int main() {
 
-    matriceDouble md1(3,6);
+    matrice<double> *md1 = new matriceDouble(3,6);
 
     for (int i = 0; i < 3; i++)
         for (int j = 0; j < 6; j++)
-            md1.set(i, j, i+j);
+            md1->set(i, j, i+j);
 
-    cout << md1 << endl << endl;
-    matriceDouble md2(3, 6);
+    cout << *md1 << endl << endl;
+    matrice<double> *md2 = new matriceDouble(3, 6);
     md2 = md1;
-    md2.set(2,2,9.0);
-    cout << md1 << endl << endl;
-    cout << md2 << endl << endl;
+    md2->set(2,2,9.0);
+    cout << *md1 << endl << endl;
+    cout << *md2 << endl << endl;
 /*
     try {
         matrice<double> *md3=md2.submat(1,3,4,2);

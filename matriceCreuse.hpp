@@ -5,7 +5,6 @@
 #include <sstream>
 
 #include "matrice.hpp"
-//#include "matriceDouble.hpp"
 #include "IndexInvalid.hpp" 
 #include "ErreurMatriceCreuse.hpp"
 
