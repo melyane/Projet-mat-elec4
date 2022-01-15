@@ -120,10 +120,10 @@ public:
 			}
 			return mc;
 		}
-*/
+
 	//Méthode somme de matrice
 	matrice<double>* somme (const matrice<double> &m) const {
 		
 	}
-
+*/
 };

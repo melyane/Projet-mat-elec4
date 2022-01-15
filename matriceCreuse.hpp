@@ -116,6 +116,7 @@ public:
 		dupliquer(m);
 		return *this;
 	}
+
 /*
 	//Méthode de convertion
 	virtual matrice<double>* convertion() const {
