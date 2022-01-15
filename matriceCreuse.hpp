@@ -82,14 +82,17 @@ public:
 				}
 			}
 		}
-		std::cout<<std::endl;
 		// si l'indice n'est pas référencé
-		if(test==1) {
-			for (int k=0; k<nbElemCreuse; k++){
-				if(this->indice[k]==-1) {
-					this->mat[k]=x;
-					this->indice[k]=i*matrice::nbC+j;
-					test=0; break;
+		if (x==0) 
+			test = 0;
+		else {	
+			if(test==1) {
+				for (int k=0; k<nbElemCreuse; k++){
+					if(this->indice[k]==-1) {
+						this->mat[k]=x;
+						this->indice[k]=i*matrice::nbC+j;
+						test=0; break;
+					}
 				}
 			}
 		}

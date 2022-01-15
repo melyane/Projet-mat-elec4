@@ -24,6 +24,7 @@ protected:
                 md->set(i,j,this->get(i,j));
             }
         }
+        delete m;
         this->m=md;
     }
     void convertirEnCreuse() {
@@ -36,14 +37,52 @@ protected:
                 mc->set(i,j,this->get(i,j));
             }
         }
+        delete m;
         this->m=mc;
+    }
+
+    // dupliquer
+    void dupliquer (const matriceOptimisee &m) {
+        this->taille=m.taille;
+        this->nbElemNonNuls=m.nbElemNonNuls;
+        int x = m.getLigne();
+        int y = m.getColonne();
+        if(m.estCreuse()==1) {
+            matriceCreuse *m1 = new matriceCreuse(x,y);
+            for(int i=0; i<x; i++) {
+                for (int j=0; j<y; j++) {
+                    m1->set(i,j,m.get(i,j));
+                }
+            }
+            this->m=m1;
+        }
+        else {
+            matriceDouble *m1 = new matriceDouble(x,y);
+            for(int i=0; i<x; i++) {
+                for (int j=0; j<y; j++) {
+                    m1->set(i,j,m.get(i,j));
+                }
+            }
+            this->m=m1;
+        }
     }
 
 public:
     // constructeur
-    matriceOptimisee(const int li=0, const int co=0) : taille(li*co), nbElemNonNuls(0) {
+    matriceOptimisee(const int li, const int co) : taille(li*co), nbElemNonNuls(0) {
         matriceCreuse *mc = new matriceCreuse(li,co);
         m = mc;
+    }
+
+    //Constructeur de copie
+    matriceOptimisee (const matriceOptimisee &m) {
+        dupliquer(m);
+    }
+    
+    //Surcharge de l'opérateur d'affectation
+    matriceOptimisee &operator=(const matriceOptimisee &m) {
+        dupliquer(m);
+        return *this;
     }
 
     // vérifie si la matrice est creuse
@@ -101,15 +140,16 @@ public:
 
     // somme entre matrices
     // this + m2
-    matriceOptimisee* somme(const matriceOptimisee *m2) const {
+    matriceOptimisee* somme(const matriceOptimisee &m2) const {
         int x = this->getLigne();
         int y = this->getColonne();        
-        assert(x == m2->getLigne());
-        assert(y == m2->getColonne());
+        assert(x == m2.getLigne());
+        assert(y == m2.getColonne());
         matriceOptimisee *res = new matriceOptimisee(x,y);
         for (int i=0; i<x; i++) {
             for (int j=0; j<y; j++) {
-                res->set(i,j,m2->get(i,j)+this->get(i,j));
+                //std::cout << "TEST " << res->estCreuse() << std::endl;
+                res->set(i,j,m2.get(i,j)+this->get(i,j));
             }
         }
         return res;
@@ -117,17 +157,17 @@ public:
 
     // produit entre matrices
     // this * m2
-    matriceOptimisee* produit(const matriceOptimisee *m2) const {
+    matriceOptimisee* produit(const matriceOptimisee &m2) const {
         int l1 = this->getLigne(); 
         int c1 = this->getColonne(); 
-        int l2 = m2->getLigne(); 
-        int c2 = m2->getColonne(); 
+        int l2 = m2.getLigne(); 
+        int c2 = m2.getColonne(); 
         assert(c1==l2);   
         matriceOptimisee *res = new matriceOptimisee(l1, c2);
         for(int i = 0; i < l1; i++) {
             for(int j = 0; j < c2; j++) {
                 for(int k = 0; k < c1; k++) {
-                    res->set(i,j,res->get(i,j)+this->get(i,k)*m2->get(k,j));
+                    res->set(i,j,res->get(i,j)+this->get(i,k)*m2.get(k,j));
                 }
             }
         }
@@ -146,4 +186,14 @@ public:
         return f<<m.toString();
     }
 
+    // remplissage aléatoire
+    void alea(int min, int max) {
+        int x = this->getLigne();
+        int y = this->getColonne();
+        for(int i=0; i<x; i++) {
+            for(int j=0; j<y; j++) {
+                this->set(i,j,((double)rand()*(max-min)/(double)RAND_MAX-min));
+            }
+        }
+    }
 };
