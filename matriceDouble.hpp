@@ -122,7 +122,7 @@ public:
 		}
 */
 	//Méthode somme de matrice
-	matrice<T>* somme (const matrice<T> &m) const {
+	matrice<double>* somme (const matrice<double> &m) const {
 		
 	}
 
