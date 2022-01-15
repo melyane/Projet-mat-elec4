@@ -6,37 +6,46 @@
 #include "IndexInvalid.hpp"
 #include "ErreurMatriceCreuse.hpp"
 
-using namespace std;                                                                                                                                                                                     
-                                                                                                                                                                                                         
+using namespace std;
+
 int main() {
 
-    matrice<double> *md1 = new matriceDouble(3,6);
+    matriceDouble md1(5,10);
 
-    for (int i = 0; i < 3; i++)
-        for (int j = 0; j < 6; j++)
-            md1->set(i, j, i+j);
+    for (int i = 0; i < 5; i++)
+        for (int j = 0; j < 10; j++)
+            md1.set(i, j, i+j);
 
-    cout << *md1 << endl << endl;
-    matrice<double> *md2 = new matriceDouble(3, 6);
+    cout << "md1 :\n" << md1 << endl;
+    matriceDouble md2(5, 10);
     md2 = md1;
-    md2->set(2,2,9.0);
-    cout << *md1 << endl << endl;
-    cout << *md2 << endl << endl;
-/*
+    md2.set(2,2,9.0);
+    cout << "md1 :\n" << md1 << endl;
+    cout << "md2 :\n" << md2 << endl;
+
     try {
-        matrice<double> *md3=md2.submat(1,3,4,2);
+        matrice <double> *md3=md2.submat(1,3,4,2);
         cout << *md3 << endl;
     }
     catch(const IndexInvalid &e) {
         cerr << e.what() << endl;
     }
-*/
-    matriceCreuse mc(3,4);
-    mc.set(1, 2, 8);
+
+    matrice<double> *md4=md1.submat(1,4,3,7);
+    cout << *md4 << endl;
+
+    matriceCreuse mc(5,10);
+    mc.set(1, 2, 5);
+    mc.set(3, 7, 4);
     cout << mc << endl;
-    matriceCreuse mc2(3,4);
-    mc2 = mc;
+    matriceCreuse mc2(5,10);
+    mc2=mc;
+    mc.set(1, 2, 2);
     cout << mc2 << endl;
-    
+    cout << mc << endl;
+
+    matrice<double> *mc3=mc.submat(1,4,3,7);
+    cout << *mc3 << endl;
+
     return EXIT_SUCCESS;
-}  
+}
