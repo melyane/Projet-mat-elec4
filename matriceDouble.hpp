@@ -1,4 +1,15 @@
+/*  
+ *  Définition de la classe "MatriceDouble"
+ *  Qui hérite de la classe "Matrice<T>"    
+ *  Les éléments d'une "MatriceDouble" sont de type double
+ *  et seront placés dans un tableau à une dimension 
+ *
+ *  @author PEZ Mélanie / HATIER Joé
+ *
+ */
+
 #pragma once
+
 #include <cstdlib>
 #include <iostream>
 #include <cassert>
@@ -28,6 +39,8 @@ public:
 		return false;
 	}
 
+	/* Role :  	duplique une matrice double
+	 */
 	void dupliquer (const matriceDouble &m) {
 		this->mat = new double [matrice::nbElem];
 		for (int i = 0; i < matrice::nbElem; i++)
@@ -40,6 +53,10 @@ public:
 	}
 
 	//Méthode virtuelle get
+	/* Role :  	renvoie le double present a la ieme ligne
+	 * 			jeme colonne. Tout en vérifiant que les indices
+	 * 			sont valides. (réécriture)
+	 */
 	virtual double get (const int i, const int j) const override {
 		if (i > matrice::nbL)
 			throw IndexInvalid ("i > nb Ligne");
@@ -50,6 +67,8 @@ public:
 	}
 
 	//Méthode virtuelle set
+	/* Role :  	force la valeur d'un double au coordonnnees [i,j]
+	 */
 	virtual void set (const int i, const int j, const double x) override{
 		if (i > matrice::nbL)
 			throw IndexInvalid ("i > nb Ligne");
@@ -79,6 +98,9 @@ public:
 	};
 
 	//Méthode submat
+	/* Role :  	renvoie un pointeur sur un objet de type matrice<double> 
+	 *			formé des lignes i1 à i2 et des colonnes j1 à j2.
+	 */
 	virtual matrice<double>* submat (const int i1, const int i2, const int j1, const int j2) {
 		if (i1 > i2)
 			throw IndexInvalid ("i1 > i2");

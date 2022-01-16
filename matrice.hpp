@@ -1,4 +1,12 @@
+/*  
+ *  Définition de la classe abstraite générique "Matrice"
+ *  
+ *  @author PEZ Mélanie / HATIER Joé
+ *
+ */
+
 #pragma once                                                                         
+
 #include <cstdlib>                                                        
 #include <iostream>
 
@@ -20,20 +28,27 @@ public:
   // destructeur
   virtual ~matrice () {}
 
+  /* Role :   Duplique la matrice<T> courante
+   */
   void dupliquer (const matrice<T> &mat) {
     this->nbElem = mat.nbElem;
     this->nbL = mat.nbL;
     this->nbC = mat.nbC;
   }
   
+  // constructeur de copie
   matrice (const matrice<T> &mat) {
     dupliquer (mat);
   }
 
+  /* Role : Renvoie le nombre de ligne de la matrice<T>
+   */
   int getLigne () const {
     return(this->nbL);
   }
 
+  /* Role : Renvoie le nombre de colonne de la matrice<T>
+   */
   int getColonne () const {
     return(this->nbC);
   }

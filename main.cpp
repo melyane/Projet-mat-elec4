@@ -1,3 +1,10 @@
+ /*  
+ *  Utilisation des classes du projet.
+ *
+ *  @author PEZ Mélanie / HATIER Joé
+ * 
+ */
+
 #include <cstdlib>
 #include <iostream>
 #include "matrice.hpp"

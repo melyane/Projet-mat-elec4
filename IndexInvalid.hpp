@@ -1,3 +1,12 @@
+ /*  
+ *  Définition de la classe "IndexInvalid"
+ *  qui hérite de la classe "exception" et qui permet de 
+ *  d'indiquer si les indices des matrices sont valides ou non 
+ * 
+ *  @author PEZ Mélanie / HATIER Joé
+ * 
+ */
+
  #pragma once
 
  #include <cstdlib>

@@ -1,4 +1,14 @@
-#pragma once                                                                         
+/*  
+ *  Définition de la classe "Matriceoptimisee"   
+ *  Elle permet notamment la convertion de matrice 
+ *  creuse / double et inversement.
+ *
+ *  @author PEZ Mélanie / HATIER Joé
+ *
+ */
+
+#pragma once
+
 #include <cstdlib>                                                        
 #include <iostream>
 #include <assert.h>
@@ -14,7 +24,10 @@ protected:
     int taille;
     int nbElemNonNuls;
 
-    // méthodes de conversion 
+    // Méthodes de conversion
+
+    /* Role : Convertir une matrice creuse en matrice double
+    */
     void convertirEnDouble() {
         int x = this->getLigne();
         int y = this->getColonne();
@@ -27,6 +40,10 @@ protected:
         delete m;
         this->m=md;
     }
+
+    /*Role : Convertir une matrice double en matrice creuse 
+    *       seulement si il y a bien 10% d’éléments non nuls.
+    */
     void convertirEnCreuse() {
         assert(this->estCreuse());
         int x = this->getLigne();
@@ -41,7 +58,8 @@ protected:
         this->m=mc;
     }
 
-    // dupliquer
+    /* Role : Dupliquer une matrice double
+     */
     void dupliquer (const matriceOptimisee &m) {
         this->taille=m.taille;
         this->nbElemNonNuls=m.nbElemNonNuls;
@@ -68,6 +86,7 @@ protected:
     }
 
 public:
+
     // constructeur
     matriceOptimisee(const int li, const int co) : taille(li*co), nbElemNonNuls(0) {
         matriceCreuse *mc = new matriceCreuse(li,co);
@@ -85,21 +104,27 @@ public:
         return *this;
     }
 
-    // vérifie si la matrice est creuse
+    // Role : Vérifier si la matrice est creuse
     int estCreuse() const {
         return (this->nbElemNonNuls < this->taille*0.1);
     }
 
-    // méthodes sur la taille
+    // Role : Renvoie le nombre de ligne de la matrice
     int getLigne() const {
         return this->m->getLigne();
     }
+
+    // Role : Renvoie le nombre de colonne de la matrice
     int getColonne() const {
         return this->m->getColonne();
     }
+
+    // Role : Retourne la taille de la matrice
     int getSize() const {
         return this->taille;
     }
+
+    // Role : Renvoie le nombre d'éléments non nuls de la matrice
     int getNbElemNonNuls() const {
         return this->nbElemNonNuls;
     }
@@ -109,6 +134,9 @@ public:
         return this->m->get(i,j);
     }
 
+    // Méthodes sur les valeurs
+
+    // Role :   Renvoie le réel présent à l'indice[i,j]
     void set(int i, int j, double val) {
         // valeur précédente
         double Pval = this->get(i,j);
@@ -138,8 +166,9 @@ public:
         }   
     }
 
-    // somme entre matrices
-    // this + m2
+    /* Role : Renvoie la somme de deux matrices
+    * this + m2
+    */
     matriceOptimisee* somme(const matriceOptimisee &m2) const {
         int x = this->getLigne();
         int y = this->getColonne();        
@@ -155,8 +184,9 @@ public:
         return res;
     }
 
-    // produit entre matrices
-    // this * m2
+    /* Role : Renvoie le produit entre deux matrices
+    * this * m2
+    */
     matriceOptimisee* produit(const matriceOptimisee &m2) const {
         int l1 = this->getLigne(); 
         int c1 = this->getColonne(); 
@@ -174,19 +204,19 @@ public:
         return res;
     }
 
-    // conversion en string pour affichage
+    // Conversion en string pour affichage
     std::string toString () const {
         std::ostringstream s;
         s << *(this->m);
         return s.str();
     }
 
-    // surcharge affichage matrice
+    // Surcharge affichage matrice
     friend std::ostream &operator<< (std::ostream &f, const matriceOptimisee &m) {
         return f<<m.toString();
     }
 
-    // remplissage aléatoire
+    // Remplissage aléatoire
     void alea(int min, int max) {
         int x = this->getLigne();
         int y = this->getColonne();

@@ -1,4 +1,15 @@
+/*  
+ *  Définition de la classe "MatriceCreuse"
+ *  Qui hérite de la classe "Matrice<T>"    
+ *  Une matrice est dite creuse lorsqu'elle est composée
+ *  au moins de 90% de réels nuls.
+ *  
+ *  @author PEZ Mélanie / HATIER Joé
+ *
+ */
+
 #pragma once
+
 #include <cstdlib>
 #include <iostream>
 #include <cassert>
@@ -33,6 +44,8 @@ public:
 		return true;
 	}
 
+	/* Role :  	duplique une matrice creuse
+	 */
 	void dupliquer (const matriceCreuse &m) {
 		this->mat = new double[nbElemCreuse];
 		this->indice = new int[nbElemCreuse];
@@ -48,6 +61,10 @@ public:
 	}
 
 	//Méthode virtuelle get
+	/* Role :  	renvoie le double present a la ieme ligne
+	 * 			jeme colonne. Tout en vérifiant que les indices
+	 * 			sont valides. (réécriture)
+	 */
 	virtual double get (const int i, const int j) const override {
 		if (i > matrice::nbL)
 			throw IndexInvalid ("i > nb Ligne");
@@ -62,6 +79,9 @@ public:
 	}
 
 	//Méthode virtuelle set
+	/* Role :  	force l'élément d'indice [i,j] à la valeur "x" 
+	 *  		si cela est possible
+	 */
 	virtual void set (const int i, const int j, const double x) override {
 		if (i > matrice::nbL)
 			throw IndexInvalid ("i > nb Ligne");
@@ -121,6 +141,9 @@ public:
 	}
 
 	//Méthode subat
+	/* Role :  	renvoie un pointeur sur un objet de type matrice<double> 
+	 *			formé des lignes i1 à i2 et des colonnes j1 à j2.
+	 */
 	virtual matrice<double>* submat (const int i1, const int i2, const int j1, const int j2) {
 		if (i1 > i2)
 			throw IndexInvalid ("i1 > i2");
